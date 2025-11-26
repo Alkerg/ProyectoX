@@ -9,13 +9,13 @@ public class SpotLight2DMouseZoom : MonoBehaviour
     public PolygonCollider2D polyCollider;
 
     [Header("Zoom")]
-    public float scrollSpeed = 1f;
-    public float minRadius = 0.5f;
+    public float scrollSpeed = 0.5f;
+    public float minRadius = 1f;
     public float maxRadius = 10f;
 
     [Header("Forma del cono")]
     [Range(10, 60)]
-    public int segments = 20;  
+    public int segments = 30;  
 
     private void Reset()
     {
@@ -32,7 +32,6 @@ public class SpotLight2DMouseZoom : MonoBehaviour
 
     private void Start()
     {
-        // Inicializar el collider con el radio actual de la luz
         ActualizarConoCollider(light2D.pointLightOuterRadius);
     }
 
@@ -57,18 +56,15 @@ public class SpotLight2DMouseZoom : MonoBehaviour
         float outerAngle = light2D.pointLightOuterAngle;
         float halfAngleRad = outerAngle * 0.5f * Mathf.Deg2Rad;
 
-        // Crear array de puntos: 1 vértice central + segmentos del arco
         Vector2[] points = new Vector2[segments + 2];
-        points[0] = Vector2.zero; // Vértice en el centro (origen de la luz)
+        points[0] = Vector2.zero; 
 
-        // Generar puntos del arco del cono
         for (int i = 0; i <= segments; i++)
         {
             float t = (float)i / segments;
             float angle = -halfAngleRad + (2f * halfAngleRad * t);
 
-            // Corregido: intercambiar x e y para que coincida con la dirección de la luz en 2D
-            // La luz apunta hacia arriba (eje Y) en Unity 2D
+
             float x = Mathf.Sin(angle) * radius;
             float y = Mathf.Cos(angle) * radius;
             points[i + 1] = new Vector2(x, y);
