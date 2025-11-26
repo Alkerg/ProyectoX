@@ -451,13 +451,57 @@ Transform:
   m_GameObject: {fileID: 284858317}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.76, y: 2.49, z: 0}
+  m_LocalPosition: {x: 9.97, y: 1.57, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1420087961}
   - {fileID: 2028440157}
   - {fileID: 360468768}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &302089664
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302089666}
+  - component: {fileID: 302089665}
+  m_Layer: 0
+  m_Name: SHIFU
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &302089665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302089664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1f546b6b77f149449db6eea70644cbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PauseManger
+--- !u!4 &302089666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302089664}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.24, y: -2.61, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &360468767
@@ -470,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 360468768}
   - component: {fileID: 360468769}
+  - component: {fileID: 360468771}
   - component: {fileID: 360468770}
   m_Layer: 0
   m_Name: Spot Light 2D
@@ -487,7 +532,7 @@ Transform:
   m_GameObject: {fileID: 360468767}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0.009414325, w: 0.9999557}
-  m_LocalPosition: {x: -0.02, y: -0.03, z: 0}
+  m_LocalPosition: {x: -0.04, y: -0.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -508,7 +553,7 @@ MonoBehaviour:
   m_ComponentVersion: 2
   m_LightType: 3
   m_BlendStyleIndex: 0
-  m_FalloffIntensity: 0.5
+  m_FalloffIntensity: 0.503
   m_Color: {r: 0.754717, g: 0.7339303, b: 0.5660378, a: 1}
   m_Intensity: 1
   m_LightVolumeIntensity: 1
@@ -531,10 +576,10 @@ MonoBehaviour:
   m_LocalBounds:
     m_Center: {x: 0, y: -0.00000011920929, z: 0}
     m_Extent: {x: 0.9985302, y: 0.99853027, z: 0}
-  m_PointLightInnerAngle: 193.52
-  m_PointLightOuterAngle: 193.52
-  m_PointLightInnerRadius: 2.3073902
-  m_PointLightOuterRadius: 4.3799686
+  m_PointLightInnerAngle: 154.82843
+  m_PointLightOuterAngle: 154.82843
+  m_PointLightInnerRadius: 1
+  m_PointLightOuterRadius: 4
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -545,7 +590,25 @@ MonoBehaviour:
   - {x: 0.5, y: -0.5, z: 0}
   - {x: 0.5, y: 0.5, z: 0}
   - {x: -0.5, y: 0.5, z: 0}
---- !u!60 &360468770
+--- !u!114 &360468770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360468767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 236953078dbab8d408556a2b8609df76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpotLight2DMouseZoom
+  light2D: {fileID: 360468769}
+  polyCollider: {fileID: 360468771}
+  scrollSpeed: 0.5
+  minRadius: 1
+  maxRadius: 10
+  segments: 30
+--- !u!60 &360468771
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,11 +654,14 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 0.23776065, y: 4.4314528}
-      - {x: -3.4680028, y: 2.8318508}
-      - {x: -4.3485966, y: -0.47666466}
-      - {x: 4.4108815, y: -0.4346435}
-      - {x: 3.7595117, y: 2.3777711}
+    - - {x: 1.4629563, y: 3.810291}
+      - {x: 0.06472173, y: 4.0268545}
+      - {x: -1.9891186, y: 3.5190966}
+      - {x: -3.2507224, y: 2.3871346}
+      - {x: -3.9068012, y: 0.91952026}
+      - {x: -0.055015445, y: 0.042438924}
+      - {x: 3.962357, y: 0.9760128}
+      - {x: 2.6566122, y: 3.0016077}
   m_UseDelaunayMesh: 0
 --- !u!1 &551103519
 GameObject:
@@ -926,7 +992,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 651300547}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -1787,3 +1853,4 @@ SceneRoots:
   - {fileID: 1187745908}
   - {fileID: 651300551}
   - {fileID: 284858322}
+  - {fileID: 302089666}
