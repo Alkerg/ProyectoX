@@ -32,8 +32,6 @@ public class LevelManager : MonoBehaviour
         // Activar input del player
         player.canShoot = true;
 
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Pause()
@@ -45,8 +43,7 @@ public class LevelManager : MonoBehaviour
         // Desactivar input del player
         player.canShoot = false;
 
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.visible = true;
     }
 
     public void RestartLevel()
