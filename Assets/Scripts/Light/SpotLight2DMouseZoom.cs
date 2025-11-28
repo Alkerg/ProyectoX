@@ -15,7 +15,8 @@ public class SpotLight2DMouseZoom : MonoBehaviour
 
     [Header("Forma del cono")]
     [Range(10, 60)]
-    public int segments = 30;  
+    public int segments = 15;  
+    public float colliderOffset = 0.5f;
 
     private void Reset()
     {
@@ -32,7 +33,7 @@ public class SpotLight2DMouseZoom : MonoBehaviour
 
     private void Start()
     {
-        ActualizarConoCollider(light2D.pointLightOuterRadius);
+        UpdateConeCollider(light2D.pointLightOuterRadius - colliderOffset);
     }
 
     private void Update()
@@ -44,12 +45,13 @@ public class SpotLight2DMouseZoom : MonoBehaviour
             float newRadius = light2D.pointLightOuterRadius + scroll * scrollSpeed;
             newRadius = Mathf.Clamp(newRadius, minRadius, maxRadius);
             light2D.pointLightOuterRadius = newRadius;
+            light2D.pointLightInnerRadius = newRadius - colliderOffset;
 
-            ActualizarConoCollider(newRadius);
+            UpdateConeCollider(newRadius - colliderOffset);
         }
     }
 
-    private void ActualizarConoCollider(float radius)
+    private void UpdateConeCollider(float radius)
     {
         if (!polyCollider || !light2D) return;
 
