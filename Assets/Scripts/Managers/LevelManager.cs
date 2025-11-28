@@ -4,9 +4,10 @@ using UnityEngine.SceneManagement;
 public class LevelManager : MonoBehaviour
 {
     public GameObject pauseMenuUI;
+    public GameObject gameOverUI;
     private bool isPaused = false;
-
     public Shooting player;
+    public bool isGameOver = false;
 
     void Start()
     {
@@ -56,5 +57,12 @@ public class LevelManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
+    }
+
+    public void GameOver()
+    {
+        isGameOver = true;
+        Time.timeScale = 0f;
+        gameOverUI.SetActive(true);
     }
 }
