@@ -4,6 +4,7 @@ public class Player : MonoBehaviour
 {
     public float health = 100;
     public HealthBar healthBar;
+    public LevelManager levelManager;
 
     void Start()
     {
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour
             health = 0;
             healthBar.SetHealth(health);
 
-            //TODO: die
+            levelManager.GameOver();
         }
         healthBar.SetHealth(health);
     }

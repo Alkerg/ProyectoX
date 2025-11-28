@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour
+public class MenusManager : MonoBehaviour
 {
     public void LoadGame(string levelName)
     {
