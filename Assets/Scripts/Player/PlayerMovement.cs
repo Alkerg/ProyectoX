@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public float speed = 5f;
+    public LevelManager levelManager;
     Vector2 movement;
     Vector2 mousePosition;
     Rigidbody2D rb;
@@ -22,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if(levelManager.isPaused || levelManager.isGameOver) return;
+
         rb.MovePosition(rb.position + movement * speed * Time.fixedDeltaTime);
         
         Vector2 lookDirection = mousePosition - rb.position;

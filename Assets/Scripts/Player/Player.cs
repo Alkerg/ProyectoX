@@ -5,18 +5,11 @@ public class Player : MonoBehaviour
     public float health = 100;
     public HealthBar healthBar;
     public LevelManager levelManager;
+    public AudioSource heartbeatAudioSource;
 
     void Start()
     {
         healthBar.SetMaxHealth(health);
-    }
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            TakeDamage(10);
-        }
     }
 
     public void TakeDamage(float damage)
@@ -26,8 +19,12 @@ public class Player : MonoBehaviour
         {
             health = 0;
             healthBar.SetHealth(health);
-
+            heartbeatAudioSource.Stop();
             levelManager.GameOver();
+
+        }else if(health <= 30 && !heartbeatAudioSource.isPlaying)
+        {
+            heartbeatAudioSource.Play();
         }
         healthBar.SetHealth(health);
     }
