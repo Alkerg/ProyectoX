@@ -8,16 +8,20 @@ public class Enemy : MonoBehaviour
     public float attackInterval = 2f;
     public float enemyDamage = 10f;
     public float enemyHealth = 50f;
+    public SpriteRenderer enemySpriteRenderer;
+    public GameObject exclamationMark;
     private bool isInLight = false;
 
     [SerializeField] Transform target;
     private NavMeshAgent agent;
-
+    private AudioSource audioSource;
     private bool isAttacking = false;         
     private Coroutine attackCoroutine = null; 
+    private Coroutine alertCoroutine = null;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false;
         agent.updateUpAxis = false;
@@ -31,6 +35,7 @@ public class Enemy : MonoBehaviour
         if (isInLight)
         {
             agent.SetDestination(target.position);
+            RotateTowardsPlayer();
         }
 
         bool canAttack =
@@ -44,11 +49,18 @@ public class Enemy : MonoBehaviour
             attackCoroutine = StartCoroutine(AttackRepeating(attackInterval));
             isAttacking = true;
         }
-        else if (!canAttack && isAttacking)
+        else if (!canAttack && isAttacking && attackCoroutine != null)
         {
             StopCoroutine(attackCoroutine);
             isAttacking = false;
         }
+
+    }
+
+    private void LateUpdate()
+    {
+        if (exclamationMark != null)
+            exclamationMark.transform.rotation = Quaternion.identity;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -56,14 +68,22 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag(lightTag))
         {
             isInLight = true;
+            audioSource.Play();
 
             if (agent != null && agent.isOnNavMesh)
                 agent.isStopped = false;
             
+            if (alertCoroutine == null)
+                alertCoroutine = StartCoroutine(ShowAlert(1f));
         }
-        if (other.CompareTag("Bullet"))
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
         {
             TakeDamage(10f);
+            StartCoroutine(HitFlash(0.3f));
         }
     }
 
@@ -72,7 +92,8 @@ public class Enemy : MonoBehaviour
         if (other.CompareTag(lightTag))
         {
             isInLight = false;
-
+            audioSource.Pause();
+            
             if (agent != null && agent.isOnNavMesh)
                 agent.isStopped = true;
 
@@ -81,6 +102,9 @@ public class Enemy : MonoBehaviour
                 StopCoroutine(attackCoroutine);
                 isAttacking = false;
             }
+            
+            exclamationMark.SetActive(false);
+
         }
     }
 
@@ -93,6 +117,18 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    private void RotateTowardsPlayer()
+    {
+        if (target == null) return;
+
+        Vector2 direction = (target.position - transform.position).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
+
+        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, angle), Time.deltaTime * 10f);
+    }
+
+
     private IEnumerator AttackRepeating(float interval)
     {
         Player player = target.GetComponent<Player>();
@@ -103,4 +139,20 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
     }
+    private IEnumerator HitFlash(float duration)
+    {
+        Color originalColor = enemySpriteRenderer.color;
+        enemySpriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(duration);
+        enemySpriteRenderer.color = originalColor;
+    }
+
+    private IEnumerator ShowAlert(float duration)
+    {
+        exclamationMark.SetActive(true);
+        yield return new WaitForSeconds(duration);
+        exclamationMark.SetActive(false);
+        alertCoroutine = null;
+    }
+
 }
