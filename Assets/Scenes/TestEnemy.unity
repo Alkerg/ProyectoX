@@ -461,6 +461,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   health: 100
   healthBar: {fileID: 0}
+  levelManager: {fileID: 0}
+  heartbeatAudioSource: {fileID: 0}
 --- !u!114 &284858321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -474,6 +476,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
+  levelManager: {fileID: 0}
 --- !u!4 &284858322
 Transform:
   m_ObjectHideFlags: 0
@@ -612,7 +615,7 @@ MonoBehaviour:
   m_PointLightInnerAngle: 154.82843
   m_PointLightOuterAngle: 154.82843
   m_PointLightInnerRadius: 2
-  m_PointLightOuterRadius: 2.5
+  m_PointLightOuterRadius: 20
   m_ShapeLightParametricSides: 5
   m_ShapeLightParametricAngleOffset: 0
   m_ShapeLightParametricRadius: 1
@@ -870,6 +873,9 @@ MonoBehaviour:
   lightTag: LightSpot
   attackInterval: 2
   enemyDamage: 10
+  enemyHealth: 50
+  enemySpriteRenderer: {fileID: 0}
+  exclamationMark: {fileID: 0}
   target: {fileID: 0}
 --- !u!195 &651300549
 NavMeshAgent:
