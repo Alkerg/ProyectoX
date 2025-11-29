@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        levelManager = FindFirstObjectByType<LevelManager>();
         healthBar.SetMaxHealth(health);
     }
 

@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        levelManager = FindFirstObjectByType<LevelManager>();
         rb = GetComponent<Rigidbody2D>();
     }
 

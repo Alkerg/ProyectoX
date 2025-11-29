@@ -5136,6 +5136,7 @@ MonoBehaviour:
   shootSound: {fileID: 2024796840}
   bulletForce: 20
   canShoot: 1
+  levelManager: {fileID: 0}
 --- !u!1 &2038373410
 GameObject:
   m_ObjectHideFlags: 0
