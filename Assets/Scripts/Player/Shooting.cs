@@ -12,11 +12,15 @@ public class Shooting : MonoBehaviour
     public float bulletForce = 20f;
 
     public bool canShoot = true;
+    public LevelManager levelManager;
+    void Start()
+    {
+        levelManager = FindFirstObjectByType<LevelManager>();
+    }
 
-    // Update is called once per frame
     void Update()
     {
-        if (!canShoot) return;
+        if (!canShoot || levelManager.isPaused || levelManager.isGameOver) return;
         if (Input.GetButtonDown("Fire1"))
         {
             Shoot();

@@ -68,6 +68,7 @@ public class LevelManager : MonoBehaviour
     {
         isGameOver = true;
         Time.timeScale = 0f;
+        mouseController.ResetCursor();
         gameOverUI.SetActive(true);
     }
 
