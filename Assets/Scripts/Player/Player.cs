@@ -7,6 +7,11 @@ public class Player : MonoBehaviour
     public LevelManager levelManager;
     public AudioSource heartbeatAudioSource;
 
+    void Awake()
+    {
+        healthBar = FindFirstObjectByType<HealthBar>();
+    }
+
     void Start()
     {
         levelManager = FindFirstObjectByType<LevelManager>();
